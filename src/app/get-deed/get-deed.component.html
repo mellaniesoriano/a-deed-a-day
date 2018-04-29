@@ -1,0 +1,8 @@
+<h2>Choose A Deed</h2>
+<ul class="deeds">
+  <li *ngFor="let deed of deeds">
+    <span>{{ deed.id }}</span> {{ deed.description }}
+  </li>
+</ul>
+
+<button (click)="goBack()">Back</button>
