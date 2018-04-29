@@ -1,18 +1,22 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
-
 import { AppComponent } from './app.component';
-
+import { HomepageComponent } from './homepage/homepage.component';
+import { GiveDeedComponent } from './give-deed/give-deed.component';
+import { DeedService } from './deed.service';
+import { GetDeedComponent } from './get-deed/get-deed.component';
+import { AppRoutingModule } from './/app-routing.module';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    HomepageComponent,
+    GiveDeedComponent,
+    GetDeedComponent
   ],
-  imports: [
-    BrowserModule
-  ],
-  providers: [],
+  imports: [BrowserModule, AppRoutingModule],
+  providers: [DeedService],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {}
