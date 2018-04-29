@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { SwingModule } from 'angular2-swing';
 
 import { AppComponent } from './app.component';
 import { HomepageComponent } from './homepage/homepage.component';
@@ -15,7 +16,7 @@ import { AppRoutingModule } from './/app-routing.module';
     GiveDeedComponent,
     GetDeedComponent
   ],
-  imports: [BrowserModule, AppRoutingModule],
+  imports: [BrowserModule, AppRoutingModule, SwingModule],
   providers: [DeedService],
   bootstrap: [AppComponent]
 })
