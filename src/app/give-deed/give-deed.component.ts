@@ -11,29 +11,21 @@ import { DeedService } from '../deed.service';
   styleUrls: ['./give-deed.component.css']
 })
 export class GiveDeedComponent implements OnInit {
-  deeds: Deed[];
+  deeds = [{id:1, description:"test1"}, {id:2, description:"test2"}];
 
   constructor(private deedService: DeedService) {}
 
   ngOnInit() {
-    this.getAllDeeds();
-    this.deedService.deeds$.subscribe(deed => {
-      console.log('subscribe', deed);
-      // console.log('this deeds', this.deeds);
-      this.deeds.push(deed);
+    console.log('this.deeds on init', this.deeds)
+    this.deedService.deeds$.subscribe(deeds => {
+      console.log('subscribe', deeds);
+      this.deeds = deeds
     });
   }
 
-  getAllDeeds(): void {
-    this.deedService.getAllDeeds().subscribe(deeds => {
-      console.log('from sub', deeds);
-      this.deeds = deeds;
-    });
-  }
-
-  addDeed(newDeed: { id; description }): void {
-    if (newDeed) {
-      this.deedService.addDeed({ description: newDeed });
-    }
+  addDeed(desc): void {
+    console.log('desc', desc)
+    this.deeds.push({id: 1, description: desc})
+    this.deedService.addDeed(this.deeds);
   }
 }

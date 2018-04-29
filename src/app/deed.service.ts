@@ -20,10 +20,8 @@ export class DeedService {
   }
 
   addDeed(val) {
-    this.deedSource.subscribe(current => {
-      current.push(val);
-      this.deedSource.next(current);
-    });
+    console.log('val in addDeed', val)
+      this.deedSource.next(val)
   }
 
   getDeed() {

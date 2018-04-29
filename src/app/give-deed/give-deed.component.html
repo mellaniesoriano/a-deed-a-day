@@ -1,5 +1,5 @@
 <h3>Give A Deed</h3>
-<input #newDeed (keyup.enter)="addDeed(newDeed.value)" (blur)="addDeed(newDeed.value); newDeed.value='' ">
+<input #newDeed>
 
 <button (click)="addDeed(newDeed.value)">Add</button>
 
