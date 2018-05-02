@@ -1,9 +1,15 @@
-import { Component, OnInit, ViewChild, ViewChildren, QueryList } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  ViewChild,
+  ViewChildren,
+  QueryList
+} from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 
-import { Deed } from '../deed';
-import { DeedService } from '../deed.service';
+import { Deed } from '../models/Deed';
+import { DeedService } from '../services/deed.service';
 
 import {
   StackConfig,
@@ -13,7 +19,8 @@ import {
   DragEvent,
   Direction,
   SwingStackComponent,
-  SwingCardComponent} from 'angular2-swing';
+  SwingCardComponent
+} from 'angular2-swing';
 
 @Component({
   selector: 'app-get-deed',
@@ -21,7 +28,6 @@ import {
   styleUrls: ['./get-deed.component.css']
 })
 export class GetDeedComponent implements OnInit {
-
   @ViewChild('myswing1') swingStack: SwingStackComponent;
   @ViewChildren('mycards1') swingCards: QueryList<SwingCardComponent>;
 
@@ -36,44 +42,72 @@ export class GetDeedComponent implements OnInit {
     private location: Location
   ) {
     this.stackConfig = {
-      allowedDirections: [
-        Direction.LEFT,
-        Direction.DOWN
-      ],
-      throwOutConfidence: (offsetX: number, offsetY: number, targetElement: HTMLElement) => {
-        // you would put ur logic based on offset & targetelement to determine
-        // what is your throwout confidence
-        const xConfidence = Math.min(Math.abs(offsetX) / targetElement.offsetWidth, 1);
-        const yConfidence = Math.min(Math.abs(offsetY) / targetElement.offsetHeight, 1);
-
-        return Math.max(xConfidence, yConfidence);
+      allowedDirections: [Direction.LEFT, Direction.RIGHT],
+      throwOutConfidence: (
+        offsetX: number,
+        offsetY: number,
+        targetElement: HTMLElement
+      ) => {
+        return Math.min(Math.abs(offsetX) / (targetElement.offsetWidth / 2), 1);
       },
-      minThrowOutDistance: 900    // default value is 400
+      transform: (element, x, y, r) => {
+        this.onItemMove(element, x, y, r);
+      },
+      throwOutDistance: d => {
+        return 800;
+      }
     };
-
-    this.cards = [
-      { name: 'clubs', symbol: '♣' },
-      { name: 'diamonds', symbol: '♦' },
-      { name: 'spades', symbol: '♠' }
-    ];
   }
 
   onThrowOut($event) {
-    console.log('throwing out with this $event: ', $event)
+    console.log('throwing out with this $event: ', $event);
   }
-
 
   ngOnInit() {
     this.getAllDeeds();
   }
 
-
-
   getAllDeeds(): void {
-    this.deedService.getAllDeeds().subscribe(deeds => (this.deeds = deeds));
+    this.deedService.getAllDeeds().subscribe(deeds => {
+      return (this.deeds = deeds);
+    });
   }
 
   goBack(): void {
     this.location.back();
+  }
+
+  onItemMove(element, x, y, r) {
+    let color = '';
+    const abs = Math.abs(x);
+    const min = Math.trunc(Math.min(16 * 16 - abs, 16 * 16));
+    const hexCode = this.decimalToHex(min, 2);
+
+    if (x < 0) {
+      color = '#FF' + hexCode + hexCode;
+    } else if (x === 0) {
+      color = '#FFF';
+    } else {
+      color = '#' + hexCode + 'FF' + hexCode;
+    }
+
+    element.style.background = color;
+    element.style[
+      'transform'
+    ] = `translate3d(0, 0, 0) translate(${x}px, ${y}px) rotate(${r}deg)`;
+  }
+
+  decimalToHex(d, padding) {
+    let hex = Number(d).toString(16);
+    padding =
+      typeof padding === 'undefined' || padding === null
+        ? (padding = 2)
+        : padding;
+
+    while (hex.length < padding) {
+      hex = '0' + hex;
+    }
+
+    return hex;
   }
 }

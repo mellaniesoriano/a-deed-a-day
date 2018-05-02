@@ -1,10 +1,13 @@
-<h3>Give A Deed</h3>
-<input #newDeed>
+<div class="card">
+  <form (ngSubmit)="onSubmit()">
 
-<button (click)="addDeed(newDeed.value)">Add</button>
+    <input type="text" placeholder="Give A Deed" [(ngModel)]="deed.description" name="description">
 
-<ul>
-  <li *ngFor="let deed of deeds">
-    {{ deed.description }}
-  </li>
-</ul>
+    <div id="btn-container">
+      <a class="back-btn" routerLink="/home">Back</a>
+      <button type="submit" class="submit-btn">Add Deed</button>
+    </div>
+
+  </form>
+</div>
+<app-deeds></app-deeds>
