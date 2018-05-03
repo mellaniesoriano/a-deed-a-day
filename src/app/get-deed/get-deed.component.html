@@ -1,10 +1,16 @@
-<h2>Choose A Deed</h2>
+<app-navbar></app-navbar>
+<div class="get-container">
+  <h2 id="get-deed-header">Choose A Deed</h2>
 
-<div id="viewport">
-  <ul class="stack" swing-stack [stackConfig]="stackConfig" #myswing1 (throwout)="onThrowOut($event)">
-    <li swing-card #mycards1 [ngClass]="deed.description" *ngFor="let deed of deeds">{{ deed.description }}</li>
-  </ul>
+  <div id="viewport">
+    <ul class="stack" swing-stack [stackConfig]="stackConfig" #myswing1 (throwout)="onThrowOut($event)">
+      <li swing-card #mycards1 [ngClass]="deed.description" *ngFor="let deed of deeds">{{ deed.description }}</li>
+    </ul>
+  </div>
+  <button class="waves-effect waves-light btn-large" (click)="goBack()">Back</button>
+
 </div>
+
 <!-- <div id="source">
       <p>Drag the playing cards out of the stack and let go. Dragging them
         beyond the desk will throw them out of the stack. If you drag too
@@ -17,4 +23,3 @@
       <p>Demonstration of <a href="https://github.com/ksachdeva/angular2-swing">
         https://github.com/ksachdeva/angular2-swing</a> implementation.</p>
   </div> -->
-<button class="waves-effect waves-light btn-large" (click)="goBack()">Back</button>

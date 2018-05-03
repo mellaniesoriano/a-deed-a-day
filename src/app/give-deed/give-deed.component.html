@@ -1,7 +1,14 @@
+<app-navbar></app-navbar>
 <div class="card">
   <form (ngSubmit)="onSubmit()">
 
-    <input type="text" placeholder="Give A Deed" [(ngModel)]="deed.description" name="description">
+    <label class="field field_animated field_a2 page__field">
+      <input type="text" [(ngModel)]="deed.description" name="description" class="field__input" autocomplete="off">
+      <span class="field__label-wrap">
+        <span class="field__label">Give A Deed</span>
+      </span>
+    </label>
+
 
     <div id="btn-container">
       <a class="back-btn" routerLink="/home">Back</a>
