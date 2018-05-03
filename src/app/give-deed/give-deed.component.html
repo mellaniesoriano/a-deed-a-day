@@ -1,10 +1,20 @@
-<h3>Give A Deed</h3>
-<input #newDeed>
+<app-navbar></app-navbar>
+<div class="card">
+  <form (ngSubmit)="onSubmit()">
 
-<button (click)="addDeed(newDeed.value)">Add</button>
+    <label class="field field_animated field_a2 page__field">
+      <input type="text" [(ngModel)]="deed.description" name="description" class="field__input" autocomplete="off">
+      <span class="field__label-wrap">
+        <span class="field__label">Give A Deed</span>
+      </span>
+    </label>
 
-<ul>
-  <li *ngFor="let deed of deeds">
-    {{ deed.description }}
-  </li>
-</ul>
+
+    <div id="btn-container">
+      <a class="back-btn" routerLink="/home">Back</a>
+      <button type="submit" class="submit-btn">Add Deed</button>
+    </div>
+
+  </form>
+</div>
+<app-deeds></app-deeds>

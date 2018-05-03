@@ -1,0 +1,13 @@
+<div id="deeds-container">
+  <h3 id="list-header">List of Deeds</h3>
+</div>
+<ul *ngFor="let deed of deeds" class="collection">
+  <li class="collection-item">
+    <div class="description">
+      {{ deed.description }}
+    </div>
+    <a class="secondary-content">
+      <i class="secondary-content" class="fa fa-trash" aria-hidden="true" (click)="deleteDeed($event, deed)"></i>
+    </a>
+  </li>
+</ul>
